@@ -1,0 +1,98 @@
+.content-login {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.content-login > .content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.content-login > .content > .field-box {
+	width: 300px;
+	height: max-content;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-radius: 20px;
+	background-color: lightgray;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.content-login > .content > .field-box > .top {
+	margin-bottom: 20px;
+	color: #878787;
+	font-size: 20px;
+}
+
+.content-login > .content > .field-box > .bottom {
+	height: max-content;
+	width: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.content-login > .content > .field-box > .bottom > .MuiButtonBase-root {
+	background-color: gray;
+	color: white;
+}
+
+.content-login > .content > .field-box > .bottom > .text-button {
+	margin-top: 2px;
+	width: 100%;
+	color: #878787;
+	transition: 0.1s cubic-bezier(0, -0.02, 0, 1);
+	user-select: none;
+}
+
+.content-login > .content > .field-box > .bottom > .forgot {
+	display: flex;
+	align-items: start;
+	justify-content: flex-end;
+	color: #106ba3;
+}
+
+.content-login > .content > .field-box > .bottom > .forgot:hover {
+	color: #59a3d1;
+	cursor: pointer;
+}
+
+.content-login > .content > .field-box > .bottom > .switch {
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	width: 100%;
+}
+
+.content-login > .content > .field-box > .bottom > .switch > span {
+	text-decoration: underline;
+	color: #106ba3;
+}
+
+.content-login > .content > .field-box > .bottom > .switch > span:hover {
+	color: #59a3d1;
+	cursor: pointer;
+}
+
+.content-login > .content > .field-box > .bottom > .external-websites > .google {
+	background-color: white;
+}
+.content-login > .content > .field-box > .bottom > .external-websites > .twitter {
+	background-color: #03a9f4;
+}
+.content-login > .content > .field-box > .bottom > .external-websites > .facebook {
+	background-color: #3b5998;
+}

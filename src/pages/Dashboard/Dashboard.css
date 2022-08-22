@@ -1,0 +1,140 @@
+.dashboard-content > .global-header {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.dashboard-content > .global-header > .log-out-button {
+	font-size: 16px;
+	background-color: #8e8e8e;
+	color: #ff7171;
+	border-radius: 20px;
+	border: none;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	box-sizing: border-box;
+	margin-left: 10px;
+	margin-right: 150px;
+}
+
+.dashboard-content > .global-header > .save-indicator {
+	color: white;
+	font-size: 16px;
+}
+
+.dashboard-content > .global-header > .verification > span {
+	transition: 0.1s cubic-bezier(0, -0.02, 0, 1);
+	color: white;
+	user-select: none;
+}
+.dashboard-content > .global-header > .verification > span:hover {
+	color: lightgray;
+}
+.dashboard-content > .global-header > .verification > span:active {
+	color: gray;
+}
+
+.dashboard-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.dashboard-content > .content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.dashboard-content > .content > .title {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.dashboard-content > .content > .title > div:first-child {
+	font-size: 16px;
+	margin-right: 10px;
+	line-height: 15px;
+	text-align: center;
+}
+
+.dashboard-content > .content > .notes {
+	box-sizing: border-box;
+	padding: 15px;
+	width: 1800px;
+	height: 800px;
+
+	overflow-y: auto;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note {
+	background-color: #7f7f7f;
+	border-radius: 20px;
+	width: 185px;
+	height: 185px;
+	box-sizing: border-box;
+	padding-right: 13px;
+	padding-left: 13px;
+	padding-top: 5px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note > .header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	height: max-content;
+	font-size: 16px;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note > .header > .right-panel {
+	width: max-content;
+	height: max-content;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note > .content {
+	width: 100%;
+	height: max-content;
+	overflow-wrap: break-word;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note::-webkit-scrollbar {
+	width: 10px;
+	height: 100%;
+	border-radius: 5px;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note::-webkit-scrollbar-button {
+	display: none;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note::-webkit-scrollbar-track-piece {
+	background-color: #606060;
+}
+
+.dashboard-content > .content > .notes > div > div > div > .note::-webkit-scrollbar-thumb {
+	background-color: #474747;
+	border-radius: 5px;
+}
+
+.note-alter > div > .MuiButtonBase-root {
+	background-color: #3e3e3e;
+}
+
+.note-alter > div > input::placeholder,
+.note-alter > div > textarea::placeholder {
+	color: rgba(43, 43, 43, 0.509);
+}
