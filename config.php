@@ -3,7 +3,7 @@
         'http://localhost:3000'
     ]);
     define("VERIFICATION_CODE_DURATION", 1800);
-
+    define("SPAM_PREVENTION_DELAY", 0.5); // Delay at the start of every login, register, verification, and email resending call to prevent spamming
 
     // * All of the below time constants are in seconds
 
@@ -13,7 +13,6 @@
     define("MAX_ACCESS_LOCKOUTS_PUNISHMENT_PERIOD", 86400); 
     define("ACCESS_LOCKOUT_PERIOD", 300); 
     define("ACCESS_RESET_PERIOD", 86400);
-    define("ACCESS_DELAY", 0.5); // Delay at the start of every login/register call to prevent spamming
     define("ACCESS_VALIDATION_CONFIG", [
         "MAX_ATTEMPTS"=>MAX_ACCESS_ATTEMPTS,
         "MAX_LOCKOUTS"=>MAX_ACCESS_LOCKOUTS,

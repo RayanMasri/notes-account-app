@@ -6,7 +6,7 @@
     require_once 'access.php';
     require_once 'utility.php';
 
-    usleep(ACCESS_DELAY * 1000000);
+    usleep(SPAM_PREVENTION_DELAY * 1000000);
 
     $fields = ["username", "email", "password"];
     $errors = [];

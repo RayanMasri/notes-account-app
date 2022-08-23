@@ -6,6 +6,8 @@
     require_once 'config.php';
     require_once 'session.php';
 
+    usleep(SPAM_PREVENTION_DELAY * 1000000);
+
     // Get database
     $db = get_database();
     if($db["error"]) error(json_encode([["type"=>"email", "error"=>"An error occured in the server"]]));
