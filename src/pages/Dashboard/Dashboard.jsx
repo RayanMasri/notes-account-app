@@ -52,37 +52,7 @@ export default function Dashboard() {
 		});
 	};
 
-	useEffect(() => {
-		updateNotesScrollbar();
-
-		fetch('http://localhost/account-server/auth-session.php', {
-			method: 'POST',
-			keep_alive: true,
-			credentials: 'include',
-		}).then(async (response) => {
-			let json = JSON.parse(await response.text());
-			if (!json.success) return navigate('/');
-
-			setState({
-				...state,
-				remember: json.remember,
-				username: json.success,
-				verified: json.verified,
-			});
-
-			if (!json.remember) {
-				setInterval(() => {
-					fetch('http://localhost/account-server/auth-session.php', {
-						method: 'POST',
-						body: formifyObject({
-							keep_alive: true,
-						}),
-						credentials: 'include',
-					});
-				}, 10000);
-			}
-		});
-
+	const getNotes = () => {
 		// do fetch here
 		fetch('http://localhost/account-server/get-notes.php', {
 			method: 'POST',
@@ -94,8 +64,9 @@ export default function Dashboard() {
 			})
 			.then((data) => {
 				let result = JSON.parse(data).result;
+
 				setState({
-					...state,
+					..._state.current,
 					notes: {
 						data: result.map((note) => {
 							return {
@@ -107,22 +78,6 @@ export default function Dashboard() {
 						initial: true,
 					},
 				});
-				console.log(result);
-				// if (state.saving.logout) {
-				// 	// do log out fetch here
-				// 	fetch('http://localhost/account-server/logout.php', {
-				// 		method: 'POST',
-				// 		credentials: 'include',
-				// 	}).then(() => navigate('/'));
-				// } else {
-				// 	setState({
-				// 		..._state.current,
-				// 		saving: {
-				// 			..._state.current.saving,
-				// 			status: false,
-				// 		},
-				// 	});
-				// }
 			})
 			.catch((error) => {
 				let json = JSON.parse(error);
@@ -136,6 +91,42 @@ export default function Dashboard() {
 					},
 				});
 			});
+	};
+
+	useEffect(() => {
+		updateNotesScrollbar();
+
+		fetch('http://localhost/account-server/auth-session.php', {
+			method: 'POST',
+			body: formifyObject({
+				keep_alive: true,
+			}),
+			credentials: 'include',
+		}).then(async (response) => {
+			let json = JSON.parse(await response.text());
+			if (!json.success) return navigate('/');
+
+			setState({
+				...state,
+				remember: json.remember,
+				username: json.success,
+				verified: json.verified,
+			});
+
+			getNotes();
+
+			if (!json.remember) {
+				setInterval(() => {
+					fetch('http://localhost/account-server/auth-session.php', {
+						method: 'POST',
+						body: formifyObject({
+							keep_alive: true,
+						}),
+						credentials: 'include',
+					});
+				}, 10000);
+			}
+		});
 	}, []);
 
 	useDidMountEffect(() => {

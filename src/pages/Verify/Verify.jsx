@@ -36,45 +36,62 @@ export default function Register() {
 	const onSubmit = async () => {
 		if (state.loading) return;
 
-		console.log('Verifying');
-		// fetch('http://localhost/account-server/register.php', {
-		// 	method: 'POST',
-		// 	body: formifyObject({ email: state.email.value, password: state.password.value, username: state.username.value, remember: state.remember }),
-		// 	credentials: 'include',
-		// })
-		// 	.then(async (response) => {
-		// 		if (!response.ok) throw await response.text();
-		// 		return response.text();
-		// 	})
-		// 	.then((data) => {
-		// 		let result = JSON.parse(data);
-		// 		if (result.success) {
-		// 			navigate('/dashboard');
-		// 		}
+		let code = state.digit1 + state.digit2 + state.digit3 + state.digit4;
+		let error = '';
 
-		// 		setState({
-		// 			...object,
-		// 			loading: false,
-		// 		});
-		// 	})
-		// 	.catch((error) => {
-		// 		let json = JSON.parse(error);
-		// 		let object = {
-		// 			...state,
-		// 			email: { ...state.email, error: '' },
-		// 			password: { ...state.password, error: '' },
-		// 			username: { ...state.username, error: '' },
-		// 		};
+		if (code.length != 4) {
+			error = 'Verification code must be 4 digits.';
+		}
 
-		// 		json.map((error) => {
-		// 			object[error.type].error = error.error;
-		// 		});
+		// This might not be necessary since user can not input non-digits
+		if (code.match(/[^\d]/g)) {
+			error = 'Verification code must only contain digits.';
+		}
 
-		// 		setState({
-		// 			...object,
-		// 			loading: false,
-		// 		});
-		// 	});
+		if (!code.trim()) {
+			error = 'Verification code must not be empty.';
+		}
+
+		if (error) {
+			setState({
+				...state,
+				error: error,
+			});
+			return;
+		}
+
+		setState({
+			...state,
+			loading: true,
+		});
+
+		fetch('http://localhost/account-server/confirm-verification.php', {
+			method: 'POST',
+			body: formifyObject({ code: code }),
+			credentials: 'include',
+		})
+			.then(async (response) => {
+				if (!response.ok) throw await response.text();
+				return response.text();
+			})
+			.then((data) => {
+				let result = JSON.parse(data);
+				if (result.success) navigate('/dashboard');
+
+				setState({
+					...state,
+					loading: false,
+				});
+			})
+			.catch((error) => {
+				let json = JSON.parse(error);
+
+				setState({
+					...state,
+					loading: false,
+					error: json.error,
+				});
+			});
 	};
 
 	const onChange = (event) => {
@@ -152,6 +169,11 @@ export default function Register() {
 	};
 
 	const sendEmail = () => {
+		setState({
+			...state,
+			loading: true,
+		});
+
 		fetch('http://localhost/account-server/send-verify-email.php', {
 			method: 'POST',
 			credentials: 'include',
@@ -162,10 +184,11 @@ export default function Register() {
 			})
 			.then((data) => {
 				let result = JSON.parse(data);
-
+				console.log(result);
 				setState({
 					...state,
 					error: false,
+					loading: false,
 				});
 			})
 			.catch((error) => {
@@ -173,6 +196,7 @@ export default function Register() {
 				setState({
 					...state,
 					error: json.error,
+					loading: false,
 				});
 			});
 	};

@@ -7,12 +7,12 @@ import Dashboard from './pages/Dashboard/Dashboard.jsx';
 import Verify from './pages/Verify/Verify.jsx';
 import './App.css';
 
-// transition height of errors
-// prevent user from viewing dashboard while not beign logged in (it is possilbe for less than a second)
+// transition height of errors when showing
+// prevent user from viewing dashboard for less than a second while not being logged in
 // no real limit on the notes, try limiting
 // optimize note saving speed by compressing into one query
-// bug with access validation, when rejected, the period has an extra second
-// make server start counting time from first attempt, not second attempt
+// make config into .ini file and then get file contents in config.php, or make into a custom file format where variables are defined by english sentences, like: "resend timeout: 5 minutes, max attempts: 10"
+// modularize Verify.jsx process of handling verification code
 
 function App() {
 	return (
