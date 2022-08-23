@@ -2,9 +2,10 @@
     require_once 'config.php';
     // Allow from any origin
     if (isset($_SERVER['HTTP_ORIGIN'])) {
-        if(!in_array($_SERVER['HTTP_ORIGIN'], ALLOWED_ORIGINS)) {                
-            exit(0);
-        }
+        // if(!in_array($_SERVER['HTTP_ORIGIN'], ALLOWED_ORIGINS)) {                
+        //     exit(0);
+        // }
+
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
         header('Access-Control-Allow-Credentials: true');
         // header('Access-Control-Max-Age: 86400');    // cache for 1 day

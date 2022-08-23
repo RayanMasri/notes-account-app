@@ -19,4 +19,8 @@
         header('HTTP/1.1 400 Bad Request');
         die($msg);
     }
+
+    function generate_fixed_digit_random_number($digits=4) {        
+        return rand(pow(10, $digits-1), pow(10, $digits)-1);
+    }
 ?>

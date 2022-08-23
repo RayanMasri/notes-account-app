@@ -30,7 +30,7 @@
     $user_id = $result["id"];
 
     // Get existing notes for user
-    $query = $pdo->prepare('SELECT * FROM notes WHERE user_id=?');
+    $query = $pdo->prepare('SELECT id, title, content FROM notes WHERE user_id=?');
     $query->execute([$user_id]);
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
     

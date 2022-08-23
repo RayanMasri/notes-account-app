@@ -2,8 +2,8 @@
     define("ALLOWED_ORIGINS", [
         'http://localhost:3000'
     ]);
-    // define("SERVER_URL", 'http://localhost/account-server');
-    define("SENDER_EMAIL_ADDRESS", 'no-reply@email.com');
+    define("VERIFICATION_CODE_DURATION", 1800);
+
 
     // * All of the below time constants are in seconds
 
@@ -26,7 +26,7 @@
     define("MAX_RESEND_ATTEMPTS", 1);
     define("MAX_RESEND_LOCKOUTS", 10);
     define("MAX_RESEND_LOCKOUTS_PUNISHMENT_PERIOD", 86400);
-    define("RESEND_LOCKOUT_PERIOD", 5);
+    define("RESEND_LOCKOUT_PERIOD", 60);
     define("RESEND_RESET_PERIOD", 86400);
     define("RESEND_VALIDATION_CONFIG", [
         "MAX_ATTEMPTS"=>MAX_RESEND_ATTEMPTS,
@@ -34,6 +34,20 @@
         "MAX_LOCKOUTS_PUNISHMENT_PERIOD"=>MAX_RESEND_LOCKOUTS_PUNISHMENT_PERIOD,
         "LOCKOUT_PERIOD"=>RESEND_LOCKOUT_PERIOD,
         "RESET_PERIOD"=>RESEND_RESET_PERIOD,
+    ]);
+
+    // Constants for submitting verification code
+    define("MAX_VERIFICATION_ATTEMPTS", 10); // make this 100
+    define("MAX_VERIFICATION_LOCKOUTS", 2);
+    define("MAX_VERIFICATION_LOCKOUTS_PUNISHMENT_PERIOD", 86400);
+    define("VERIFICATION_LOCKOUT_PERIOD", 600);
+    define("VERIFICATION_RESET_PERIOD", 86400);
+    define("VERIFICATION_VALIDATION_CONFIG", [
+        "MAX_ATTEMPTS"=>MAX_VERIFICATION_ATTEMPTS,
+        "MAX_LOCKOUTS"=>MAX_VERIFICATION_LOCKOUTS,
+        "MAX_LOCKOUTS_PUNISHMENT_PERIOD"=>MAX_VERIFICATION_LOCKOUTS_PUNISHMENT_PERIOD,
+        "LOCKOUT_PERIOD"=>VERIFICATION_LOCKOUT_PERIOD,
+        "RESET_PERIOD"=>VERIFICATION_RESET_PERIOD,
     ]);
 
     define("NON_REMEMBER_TIMEOUT", 30); // The time which defines how long after a ping received by the server should the session be deleted if the user opts to not be remembered
