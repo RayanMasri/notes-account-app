@@ -4,13 +4,9 @@
     require_once 'db.php';
     require_once 'utility.php';
     require_once 'access.php';
+    require_once 'utility.php';
 
-    usleep(INITIAL_DELAY * 1000000);
-
-    function error($msg) {
-        header('HTTP/1.1 400 Bad Request');
-        die($msg);
-    }
+    usleep(ACCESS_DELAY * 1000000);
 
     $fields = ["username", "email", "password"];
     $errors = [];
@@ -43,20 +39,24 @@
     $pdo = $db["pdo"];
     
     // Prevents user to a few attempts of login/register
-    validate_access_attempt($pdo);
+    $validation = validate_access_attempt($pdo, "access_attempts", ACCESS_VALIDATION_CONFIG);
+    if(!$validation["success"]) {
+        $period = $validation["period"];
+        error(json_encode([["type"=>"username", "error"=>"Max attempts reached, locked out for $period."]]));
+    }
 
     // Check if username exists
     $query = $pdo->prepare('SELECT * FROM accounts WHERE username=?');
     $query->execute([$_POST["username"]]);
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    // If doesn't, throw error
+    // If does, throw error
     if($result) error(json_encode([["type"=>"username", "error"=>"Username already exists."]]));
     
     // Check if email exists
     $query = $pdo->prepare('SELECT * FROM accounts WHERE email=?');
     $query->execute([$_POST["email"]]);
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    // If doesn't, throw error
+    // If does, throw error
     if($result) error(json_encode([["type"=>"email", "error"=>"Email already exists."]]));
 
     // Add new account data into databse

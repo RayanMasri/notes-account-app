@@ -2,13 +2,8 @@
     require_once 'cors.php';
     require_once 'session.php';
     require_once 'db.php';
-
-    function error($msg) {
-        header('HTTP/1.1 400 Bad Request');
-        die($msg);
-    }
+    require_once 'utility.php';
     
-
     // Get database
     $db = get_database();
     if($db["error"]) {

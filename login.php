@@ -4,13 +4,9 @@
     require_once 'db.php';
     require_once 'utility.php';
     require_once 'access.php';
+    require_once 'utility.php';
 
-    usleep(INITIAL_DELAY * 1000000);
-
-    function error($msg) {
-        header('HTTP/1.1 400 Bad Request');
-        die($msg);
-    }
+    usleep(ACCESS_DELAY * 1000000);
 
     $fields = ["email", "password"];
     $errors = [];
@@ -39,7 +35,11 @@
     $pdo = $db["pdo"];
 
     // Prevents user to a few attempts of login/register
-    validate_access_attempt($pdo);
+    $validation = validate_access_attempt($pdo, "access_attempts", ACCESS_VALIDATION_CONFIG);
+    if(!$validation["success"]) {
+        $period = $validation["period"];
+        error(json_encode([["type"=>"email", "error"=>"Max attempts reached, locked out for $period."]]));
+    }
 
     // Check if email & password exist in database
     $query = $pdo->prepare('SELECT * FROM accounts WHERE email=? AND password=?');

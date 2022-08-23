@@ -14,4 +14,9 @@
         } 
         return "0 seconds";
     }   
+
+    function error($msg) {
+        header('HTTP/1.1 400 Bad Request');
+        die($msg);
+    }
 ?>
