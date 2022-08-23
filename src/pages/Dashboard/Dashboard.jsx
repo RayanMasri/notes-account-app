@@ -406,6 +406,7 @@ export default function Dashboard() {
 							style={{
 								textDecoration: 'underline',
 							}}
+							onClick={() => navigate('/verify')}
 						>
 							Verify
 						</span>

@@ -11,6 +11,8 @@ import './App.css';
 // prevent user from viewing dashboard while not beign logged in (it is possilbe for less than a second)
 // no real limit on the notes, try limiting
 // optimize note saving speed by compressing into one query
+// bug with access validation, when rejected, the period has an extra second
+// make server start counting time from first attempt, not second attempt
 
 function App() {
 	return (

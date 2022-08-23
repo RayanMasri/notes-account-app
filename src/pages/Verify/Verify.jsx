@@ -15,6 +15,7 @@ export default function Register() {
 		digit3: '',
 		digit4: '',
 		loading: false,
+		error: false,
 	});
 
 	const { formifyObject, wrapPromise } = useUtilityHook();
@@ -150,6 +151,32 @@ export default function Register() {
 		// }
 	};
 
+	const sendEmail = () => {
+		fetch('http://localhost/account-server/send-verify-email.php', {
+			method: 'POST',
+			credentials: 'include',
+		})
+			.then(async (response) => {
+				if (!response.ok) throw await response.text();
+				return response.text();
+			})
+			.then((data) => {
+				let result = JSON.parse(data);
+
+				setState({
+					...state,
+					error: false,
+				});
+			})
+			.catch((error) => {
+				let json = JSON.parse(error);
+				setState({
+					...state,
+					error: json.error,
+				});
+			});
+	};
+
 	return (
 		<div className='content-verify'>
 			<div className='global-header'>
@@ -203,6 +230,31 @@ export default function Register() {
 						>
 							Submit
 						</LoadingButton>
+						<div
+							style={{
+								width: '100%',
+								textAlign: 'right',
+								marginTop: '5px',
+								lineHeight: '1.1',
+								textDecoration: 'underline',
+							}}
+							className='send-email'
+							onClick={sendEmail}
+						>
+							Resend verification email
+						</div>
+						{state.error && (
+							<div
+								style={{
+									width: '100%',
+									textAlign: 'right',
+									lineHeight: '1.1',
+									color: 'rgb(158, 46, 46)',
+								}}
+							>
+								{state.error}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
